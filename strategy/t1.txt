@@ -1,0 +1,10 @@
+func one
+    a is a+1 + 1
+    b is 2
+    c is 3
+    a is c
+    for 3 do a=random(6) endfor
+    opponent(1)
+    if a=1 then a=10 else b=10 endif
+    return a
+endf

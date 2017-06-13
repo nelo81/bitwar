@@ -1,0 +1,34 @@
+program     -> func-stat
+func-stat   -> func id stmt-list endf
+stmt-list   -> {stmt}
+stmt        -> if-stmt | while-stmt | assign-stmt | return-stmt
+if-stmt     -> if exp then stmt-list [else stmt-list] endi
+while-stmt  -> while exp do stmt-list endw
+assign-stmt -> id is exp
+return-stmt -> return exp
+exp         -> logic-exp [logic logic-exp]
+logic       -> and | or
+logic-exp   -> simple-exp [comp simple-exp]
+comp        -> > | < | =
+simple-exp  -> term {addop term}
+addop       -> + | -
+term        -> factor {mulop factor}
+mulop       -> * | /
+factor      -> (exp) | num | id | random | const
+random      -> random(exp)
+const       -> current | my(exp) | opponent(exp)
+
+num         -> [0-9]+
+id          -> [a-zA-Z]+
+
+
+token: 
+       func endf 
+       if then else endi
+       while do endw
+       is
+       return
+       and or
+       comp addop mulop
+       random current my opponent
+       id num
