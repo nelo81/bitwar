@@ -3,6 +3,7 @@ package Entity;
 import Expection.CompileException;
 import Util.TokenList;
 
+@SuppressWarnings("all")
 public class Leaf implements Tree{
     public Leaf(){setValue(null);}
 

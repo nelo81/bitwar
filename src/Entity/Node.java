@@ -1,8 +1,6 @@
 package Entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
+@SuppressWarnings("all")
 public class Node {
     private String value;
     public String condition;

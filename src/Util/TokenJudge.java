@@ -3,6 +3,7 @@ package Util;
 import java.util.Arrays;
 import java.util.List;
 
+@SuppressWarnings("all")
 public class TokenJudge {
     private static final List<String> limits
             = Arrays.asList("func","endf", "if","then","else",
@@ -38,6 +39,10 @@ public class TokenJudge {
 
     public static boolean isOp(char op){
         return ops.contains(String.valueOf(op));
+    }
+
+    public static boolean isConst(String token){
+        return token.equals("current")||token.equals("my")||token.equals("opponent");
     }
 
     public static boolean isLimit(String token){

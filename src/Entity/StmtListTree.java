@@ -6,20 +6,20 @@ import Util.TokenList;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("all")
 public class StmtListTree implements Tree{
-    private List<StmtTree> stmtTrees;
+    private StmtTree firstStmt;
+    private StmtTree cursor;
 
     public StmtListTree(){
         setValue("stmt-list");
-        stmtTrees = new ArrayList<>();
+        firstStmt = null;
     }
 
-    public void addStmtTree(StmtTree tree){
-        stmtTrees.add(tree);
-    }
-
-    public List<StmtTree> getStmtTrees() {
-        return stmtTrees;
+    public void addStmt(StmtTree tree){
+        if(firstStmt == null) firstStmt = tree;
+        else cursor.setNextStmt(tree);
+        cursor = tree;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class StmtListTree implements Tree{
             StmtTree tree = new StmtTree();
             tree.grow(tokens);
             if(tree.getCondition().equals("null")) break;
-            else addStmtTree(tree);
+            else addStmt(tree);
         }
     }
 
