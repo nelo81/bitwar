@@ -4,13 +4,12 @@ import Expection.CompileException;
 import Entity.ProgramTree;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static Util.Tokenizer.getTokens;
 
 public class Parser {
-    private static final Map<String, String> grammars = new HashMap<String, String>();
+    private static final Map<String, String> grammars = new HashMap<>();
 
     static {
         grammars.put("program", "func-stat");

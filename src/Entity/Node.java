@@ -4,20 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Node {
-    private List<Tree> sons;
     private String value;
+    public String condition;
 
-    public Node(){
-        sons = new ArrayList<>();
-    }
+    public Node(){}
 
     public Node(String value) {
         this.value = value;
-        sons = new ArrayList<>();
-    }
-
-    public void add(Tree son){
-        sons.add(son);
     }
 
     public String getValue() {
@@ -28,7 +21,11 @@ public class Node {
         this.value = value;
     }
 
-    public List<Tree> getSons() {
-        return sons;
+    public String getCondition() {
+        return condition;
+    }
+
+    public void setCondition(String condition) {
+        this.condition = condition;
     }
 }

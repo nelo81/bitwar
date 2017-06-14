@@ -1,4 +1,16 @@
 package Entity;
 
-public class TermTree {
+import Expection.CompileException;
+import Util.TokenList;
+
+public class TermTree implements Tree{
+    @Override
+    public void grow(TokenList tokens) throws CompileException {
+
+    }
+
+    @Override
+    public int run() {
+        return 0;
+    }
 }

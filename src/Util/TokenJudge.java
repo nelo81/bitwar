@@ -17,7 +17,7 @@ public class TokenJudge {
     }
 
     public static boolean isId(String token){
-        return token.matches("[a-zA-Z]+");
+        return !limits.contains(token) && token.matches("[a-zA-Z]+");
     }
 
     public static boolean isOp(char op){
@@ -30,5 +30,11 @@ public class TokenJudge {
 
     public static boolean isToken(String token) {
         return isId(token)||isLimit(token)||isNum(token);
+    }
+
+    public static void main(String args[]){
+        String a = "func";
+        String b = "fun";
+        System.out.println(isId(a)+" "+isId(b));
     }
 }
