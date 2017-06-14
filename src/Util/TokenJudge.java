@@ -20,6 +20,22 @@ public class TokenJudge {
         return !limits.contains(token) && token.matches("[a-zA-Z]+");
     }
 
+    public static boolean isLogic(String token){
+        return token.equals("and")||token.equals("or");
+    }
+
+    public static boolean isComp(String token){
+        return token.equals("<")||token.equals(">")||token.equals("=");
+    }
+
+    public static boolean isAddop(String token){
+        return token.equals("+")||token.equals("-");
+    }
+
+    public static boolean isMulop(String token){
+        return token.equals("*")||token.equals("/");
+    }
+
     public static boolean isOp(char op){
         return ops.contains(String.valueOf(op));
     }
