@@ -1,0 +1,8 @@
+func t3
+    if current = 1
+    then
+        return 1
+    else
+        return opponent(current)
+    endi
+endf

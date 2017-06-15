@@ -1,12 +1,14 @@
 package Entity;
 
 import Expection.CompileException;
-import Util.TokenList;
+import Compiler.TokenList;
+import Expection.RunningException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-import static Util.TokenJudge.isAddop;
+import static Compiler.TokenJudge.isAddop;
 
 @SuppressWarnings("all")
 public class SimpleExpTree implements Tree{
@@ -16,7 +18,6 @@ public class SimpleExpTree implements Tree{
     public SimpleExpTree(){
         terms = new ArrayList<>();
         addops = new ArrayList<>();
-        setValue("simple-exp");
     }
 
     @Override
@@ -33,7 +34,15 @@ public class SimpleExpTree implements Tree{
     }
 
     @Override
-    public int run() {
-        return 0;
+    public Integer run(Map<String, Integer> localVal) throws RunningException {
+        int result = terms.get(0).run(localVal);
+        for(int i=0;i<addops.size();i++){
+            if(addops.get(i).equals("+"))
+                result += terms.get(i+1).run(localVal);
+            else if(addops.get(i).equals("-"))
+                result -= terms.get(i+1).run(localVal);
+            else throw new RunningException("simple-exp grammar error");
+        }
+        return result;
     }
 }

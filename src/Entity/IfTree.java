@@ -1,16 +1,26 @@
 package Entity;
 
 import Expection.CompileException;
-import Util.TokenList;
+import Compiler.TokenList;
+import Expection.RunningException;
+
+import java.util.Map;
 
 @SuppressWarnings("all")
 public class IfTree implements Tree{
     private ExpTree ifPart;
     private StmtListTree thenPart;
     private StmtListTree elsePart;
+    private String condition;
 
-    public IfTree(){
-        setValue("if-stmt");
+    public IfTree(){}
+
+    public String getCondition() {
+        return condition;
+    }
+
+    public void setCondition(String condition) {
+        this.condition = condition;
     }
 
     @Override
@@ -36,7 +46,13 @@ public class IfTree implements Tree{
     }
 
     @Override
-    public int run() {
-        return 0;
+    public Integer run(Map<String, Integer> localVal) throws RunningException {
+        if(ifPart.run(localVal)!=0){
+            return thenPart.run(localVal);
+        }
+        else if(getCondition().equals("else")){
+            return elsePart.run(localVal);
+        }
+        else throw new RunningException("if-stmt grammar error");
     }
 }

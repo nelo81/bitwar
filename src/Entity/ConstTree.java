@@ -1,23 +1,34 @@
 package Entity;
 
 import Expection.CompileException;
-import Util.TokenList;
+import Compiler.TokenList;
+import Expection.RunningException;
+
+import java.util.Map;
 
 @SuppressWarnings("all")
 public class ConstTree implements Tree{
-    private Leaf current;
+    private CurrentTree current;
     private MyTree my;
     private OpponentTree opponent;
+    private String condition;
 
-    public ConstTree(){
-        setValue("const");
+    public ConstTree(){}
+
+    public String getCondition() {
+        return condition;
+    }
+
+    public void setCondition(String condition) {
+        this.condition = condition;
     }
 
     @Override
     public void grow(TokenList tokens) throws CompileException {
         if(tokens.watch().equals("current")){
             setCondition("current");
-            current = new Leaf(tokens.read());
+            current = new CurrentTree();
+            current.grow(tokens);
         }
         else if(tokens.watch().equals("my")){
             setCondition("my");
@@ -35,7 +46,10 @@ public class ConstTree implements Tree{
     }
 
     @Override
-    public int run() {
-        return 0;
+    public Integer run(Map<String, Integer> localVal) throws RunningException {
+        if(getCondition().equals("current")) return current.run(localVal);
+        if(getCondition().equals("my")) return my.run(localVal);
+        if(getCondition().equals("opponent")) return opponent.run(localVal);
+        else throw new RunningException("const grammar error");
     }
 }

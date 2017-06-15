@@ -1,4 +1,4 @@
-package Util;
+package Compiler;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,7 +18,7 @@ public class TokenJudge {
     }
 
     public static boolean isId(String token){
-        return !limits.contains(token) && token.matches("[a-zA-Z]+");
+        return !limits.contains(token) && token.matches("[a-zA-Z][a-zA-Z0-9]*");
     }
 
     public static boolean isLogic(String token){

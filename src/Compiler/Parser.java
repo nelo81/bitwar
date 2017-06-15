@@ -1,13 +1,15 @@
-package Util;
+package Compiler;
 
 import Expection.CompileException;
 import Entity.ProgramTree;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import static Util.Tokenizer.getTokens;
+import static Compiler.Tokenizer.getTokens;
 
+@SuppressWarnings("all")
 public class Parser {
     private static final Map<String, String> grammars = new HashMap<>();
 
@@ -33,7 +35,17 @@ public class Parser {
         grammars.put("const", "current | my(exp) | opponent(exp)");
     }
 
-    private static ProgramTree parse(TokenList tokens) throws CompileException{
+    public static ProgramTree parse(String path) throws CompileException{
+        File file = new File(path);
+        String code = Filer.readFile(path);
+        TokenList tokens = getTokens(code);
+        ProgramTree program = parse(tokens);
+        System.out.println(file.getName()+": compile success");
+        return program;
+    }
+
+    public static ProgramTree parse(TokenList tokens) throws CompileException{
+        TokenList.init();
         ProgramTree program = new ProgramTree();
         program.grow(tokens);
         return program;
@@ -41,9 +53,10 @@ public class Parser {
 
     public static void main(String args[]) {
         try {
-            String code = Filer.readFile("strategy/t1.txt");
+            String code = Filer.readFile("strategy/t5.txt");
             TokenList tokens = getTokens(code);
             ProgramTree program = parse(tokens);
+            System.out.println("compile success");
         }
         catch (CompileException ce){
             System.err.println(ce.getMessage());

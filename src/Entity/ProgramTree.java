@@ -1,18 +1,19 @@
 package Entity;
 
 import Expection.CompileException;
-import Util.TokenList;
+import Compiler.TokenList;
+import Expection.RunningException;
 
-import static Util.TokenJudge.isId;
+import java.util.Map;
+
+import static Compiler.TokenJudge.isId;
 
 @SuppressWarnings("all")
 public class ProgramTree implements Tree {
     private Leaf name;
     private StmtListTree stmtList;
 
-    public ProgramTree() {
-        setValue("program");
-    }
+    public ProgramTree() {}
 
     @Override
     public void grow(TokenList tokens) throws CompileException{
@@ -26,7 +27,7 @@ public class ProgramTree implements Tree {
     }
 
     @Override
-    public int run() {
-        return 0;
+    public Integer run(Map<String, Integer> localVal) throws RunningException {
+        return stmtList.run(localVal);
     }
 }

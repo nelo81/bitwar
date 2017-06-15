@@ -1,7 +1,8 @@
-package Util;
+package Compiler;
 
 import java.util.List;
 
+@SuppressWarnings("all")
 public class TokenList {
     private static int tokenIndex;
     private List<String> tokens;
@@ -16,7 +17,7 @@ public class TokenList {
         return tokenIndex >= tokens.size();
     }
 
-    public void init(){
+    public static void init(){
         tokenIndex = 0;
     }
 

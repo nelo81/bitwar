@@ -1,19 +1,27 @@
 package Entity;
 
 import Expection.CompileException;
-import Util.TokenList;
+import Compiler.TokenList;
+import Expection.RunningException;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings("all")
 public class StmtListTree implements Tree{
     private StmtTree firstStmt;
     private StmtTree cursor;
+    private String condition;
 
     public StmtListTree(){
-        setValue("stmt-list");
         firstStmt = null;
+    }
+
+    public String getCondition() {
+        return condition;
+    }
+
+    public void setCondition(String condition) {
+        this.condition = condition;
     }
 
     public void addStmt(StmtTree tree){
@@ -33,7 +41,7 @@ public class StmtListTree implements Tree{
     }
 
     @Override
-    public int run() {
-        return 0;
+    public Integer run(Map<String, Integer> localVal) throws RunningException {
+        return firstStmt.run(localVal);
     }
 }

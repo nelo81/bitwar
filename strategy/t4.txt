@@ -1,0 +1,11 @@
+func t4
+    if current = 0
+    then
+        return 1
+    else
+        if random(4) = 3
+        then return 0
+        else return opponent(current)
+        endi
+    endi
+endf

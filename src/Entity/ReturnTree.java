@@ -1,15 +1,16 @@
 package Entity;
 
 import Expection.CompileException;
-import Util.TokenList;
+import Compiler.TokenList;
+import Expection.RunningException;
+
+import java.util.Map;
 
 @SuppressWarnings("all")
 public class ReturnTree implements Tree{
     private ExpTree exp;
 
-    public ReturnTree(){
-        setValue("return-stmt");
-    }
+    public ReturnTree(){}
 
     @Override
     public void grow(TokenList tokens) throws CompileException {
@@ -20,7 +21,7 @@ public class ReturnTree implements Tree{
     }
 
     @Override
-    public int run() {
-        return 0;
+    public Integer run(Map<String, Integer> localVal) throws RunningException {
+        return exp.run(localVal);
     }
 }

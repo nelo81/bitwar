@@ -1,15 +1,16 @@
 package Entity;
 
 import Expection.CompileException;
-import Util.TokenList;
+import Compiler.TokenList;
+import Expection.RunningException;
+
+import java.util.Map;
 
 @SuppressWarnings("all")
 public class OpponentTree implements Tree{
     private ExpTree exp;
 
-    public OpponentTree(){
-        setValue("opponent");
-    }
+    public OpponentTree(){}
 
     @Override
     public void grow(TokenList tokens) throws CompileException {
@@ -24,7 +25,7 @@ public class OpponentTree implements Tree{
     }
 
     @Override
-    public int run() {
+    public Integer run(Map<String, Integer> localVal) throws RunningException {
         return 0;
     }
 }

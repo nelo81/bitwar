@@ -1,18 +1,28 @@
 package Entity;
 
 import Expection.CompileException;
-import Util.TokenList;
+import Compiler.TokenList;
+import Expection.RunningException;
 
-import static Util.TokenJudge.isComp;
+import java.util.Map;
+
+import static Compiler.TokenJudge.isComp;
 
 @SuppressWarnings("all")
 public class LogicExpTree implements Tree{
     private SimpleExpTree left;
     private Leaf comp;
     private SimpleExpTree right;
+    private String condition;
 
-    public LogicExpTree(){
-        setValue("logic-exp");
+    public LogicExpTree(){}
+
+    public String getCondition() {
+        return condition;
+    }
+
+    public void setCondition(String condition) {
+        this.condition = condition;
     }
 
     @Override
@@ -29,7 +39,27 @@ public class LogicExpTree implements Tree{
     }
 
     @Override
-    public int run() {
-        return 0;
+    public Integer run(Map<String, Integer> localVal) throws RunningException {
+        if(getCondition().equals("hasComp")){
+            if(comp.getValue().equals("<")){
+                if(left.run(localVal)<right.run(localVal))
+                    return 1;
+                else return 0;
+            }
+            if(comp.getValue().equals(">")){
+                if(left.run(localVal)>right.run(localVal))
+                    return 1;
+                else return 0;
+            }
+            if(comp.getValue().equals("=")){
+                if(left.run(localVal)==right.run(localVal))
+                    return 1;
+                else return 0;
+            }
+        }
+        if(getCondition().equals("noComp")){
+            return left.run(localVal);
+        }
+        else throw new RunningException("logic-exp grammar error");
     }
 }

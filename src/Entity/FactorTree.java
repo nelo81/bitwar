@@ -1,11 +1,14 @@
 package Entity;
 
 import Expection.CompileException;
-import Util.TokenList;
+import Compiler.TokenList;
+import Expection.RunningException;
 
-import static Util.TokenJudge.isConst;
-import static Util.TokenJudge.isId;
-import static Util.TokenJudge.isNum;
+import java.util.Map;
+
+import static Compiler.TokenJudge.isConst;
+import static Compiler.TokenJudge.isId;
+import static Compiler.TokenJudge.isNum;
 
 @SuppressWarnings("all")
 public class FactorTree implements Tree{
@@ -13,9 +16,16 @@ public class FactorTree implements Tree{
     private Leaf value;
     private RandomTree random;
     private ConstTree con;
+    private String condition;
 
-    public FactorTree(){
-        setValue("factor");
+    public FactorTree(){}
+
+    public String getCondition() {
+        return condition;
+    }
+
+    public void setCondition(String condition) {
+        this.condition = condition;
     }
 
     @Override
@@ -48,7 +58,14 @@ public class FactorTree implements Tree{
     }
 
     @Override
-    public int run() {
-        return 0;
+    public Integer run(Map<String, Integer> localVal) throws RunningException {
+        switch (getCondition()){
+            case "exp": return exp.run(localVal);
+            case "value": return value.run(localVal);
+            case "random": return random.run(localVal);
+            case "const": return con.run(localVal);
+            default:
+                throw new RunningException("factor grammar error");
+        }
     }
 }

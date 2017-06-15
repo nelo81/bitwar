@@ -1,9 +1,12 @@
 package Entity;
 
 import Expection.CompileException;
-import Util.TokenList;
+import Compiler.TokenList;
+import Expection.RunningException;
 
-import static Util.TokenJudge.isId;
+import java.util.Map;
+
+import static Compiler.TokenJudge.isId;
 
 @SuppressWarnings("all")
 public class StmtTree implements Tree{
@@ -12,9 +15,22 @@ public class StmtTree implements Tree{
     private AssignTree assignTree;
     private ReturnTree returnTree;
     private StmtTree nextStmt;
+    private String condition;
 
     public StmtTree(){
-        setValue("stmt");
+        nextStmt = null;
+    }
+
+    public String getCondition() {
+        return condition;
+    }
+
+    public void setCondition(String condition) {
+        this.condition = condition;
+    }
+
+    public boolean hasNext(){
+        return nextStmt != null;
     }
 
     public void setNextStmt(StmtTree nextStmt) {
@@ -50,7 +66,21 @@ public class StmtTree implements Tree{
     }
 
     @Override
-    public int run() {
-        return 0;
+    public Integer run(Map<String, Integer> localVal) throws RunningException {
+        Integer val = null;
+        switch (getCondition()){
+            case "if":
+                val = ifTree.run(localVal);
+                if(val==null) return hasNext()?nextStmt.run(localVal):null;
+                else return val;
+            case "while":
+                val = whileTree.run(localVal);
+                if(val==null) return hasNext()?nextStmt.run(localVal):null;
+                else return val;
+            case "assign": return hasNext()?nextStmt.run(localVal):null;
+            case "return": return returnTree.run(localVal);
+            default:
+                throw new RunningException("stmt grammar error");
+        }
     }
 }

@@ -1,0 +1,6 @@
+func t2
+    if random(4) = 3
+    then return 0
+    else return 1
+    endi
+endf

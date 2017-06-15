@@ -1,12 +1,13 @@
-package Util;
+package Compiler;
 
 import Expection.CompileException;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static Util.TokenJudge.*;
+import static Compiler.TokenJudge.*;
 
+@SuppressWarnings("all")
 public class Tokenizer {
     public static TokenList getTokens(String code) throws CompileException{
         List<String> tokens = new ArrayList<>();

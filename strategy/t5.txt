@@ -1,0 +1,12 @@
+func t5
+    index is 1
+
+    while index<opponent(0)+1
+    do
+        if opponent(index)=0
+        then return 0
+        endi
+    endw
+
+    return 1
+endf

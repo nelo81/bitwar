@@ -1,7 +1,8 @@
-package Util;
+package Compiler;
 
 import java.io.*;
 
+@SuppressWarnings("all")
 public class Filer {
     public static String readFile(String path){
         String result = "";

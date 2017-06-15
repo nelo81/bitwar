@@ -1,15 +1,17 @@
 package Entity;
 
 import Expection.CompileException;
-import Util.TokenList;
+import Compiler.TokenList;
+import Expection.RunningException;
+
+import java.util.Map;
+import java.util.Random;
 
 @SuppressWarnings("all")
 public class RandomTree implements Tree{
     private ExpTree exp;
 
-    public RandomTree(){
-        setValue("random");
-    }
+    public RandomTree(){}
 
     @Override
     public void grow(TokenList tokens) throws CompileException {
@@ -24,7 +26,9 @@ public class RandomTree implements Tree{
     }
 
     @Override
-    public int run() {
-        return 0;
+    public Integer run(Map<String, Integer> localVal) throws RunningException {
+        int max = exp.run(localVal);
+        Random r = new Random();
+        return r.nextInt(max);
     }
 }

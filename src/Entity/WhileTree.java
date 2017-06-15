@@ -1,7 +1,10 @@
 package Entity;
 
 import Expection.CompileException;
-import Util.TokenList;
+import Compiler.TokenList;
+import Expection.RunningException;
+
+import java.util.Map;
 
 @SuppressWarnings("all")
 public class WhileTree implements Tree{
@@ -23,7 +26,11 @@ public class WhileTree implements Tree{
     }
 
     @Override
-    public int run() {
-        return 0;
+    public Integer run(Map<String, Integer> localVal) throws RunningException {
+        while (exp.run(localVal)!=0){
+            Integer val = stmts.run(localVal);
+            if(val!=null) return val;
+        }
+        return null;
     }
 }
