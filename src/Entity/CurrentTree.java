@@ -4,8 +4,9 @@ import Expection.CompileException;
 import Expection.RunningException;
 
 import Compiler.TokenList;
-import Runtime.GlobalValue;
+import Runtime.*;
 
+import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("all")
@@ -20,8 +21,28 @@ public class CurrentTree implements Tree{
 
     @Override
     public Integer run(Map<String, Integer> localVal) throws RunningException {
-        if(!GlobalValue.contain("current"))
-            throw new RunningException("'current' is not defined");
-        return (Integer) GlobalValue.getGlobalVal("current");
+        int current = localVal.get("current");
+        int order = localVal.get("my");
+        if (order==Program.FIRST_RUN){
+            if (current==Program.MY_CURRENT){
+                return ((List)GlobalValue.getGlobalVal("history1")).size();
+            }
+            if (current==Program.OPPONENT_CURRENT){
+                return ((List)GlobalValue.getGlobalVal("history2")).size();
+            }
+            throw new RunningException("current val is invaild");
+        }
+        if (order==Program.SECOND_RUN){
+            if (current==Program.MY_CURRENT){
+                return ((List)GlobalValue.getGlobalVal("history2")).size();
+            }
+            if (current==Program.OPPONENT_CURRENT){
+                return ((List)GlobalValue.getGlobalVal("history1")).size();
+            }
+            throw new RunningException("current val is invaild");
+        }
+        else {
+            throw new RunningException("my-stmt cannot run in single mode");
+        }
     }
 }

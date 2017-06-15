@@ -3,7 +3,9 @@ package Entity;
 import Expection.CompileException;
 import Compiler.TokenList;
 import Expection.RunningException;
+import Runtime.*;
 
+import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("all")
@@ -26,6 +28,23 @@ public class MyTree implements Tree{
 
     @Override
     public Integer run(Map<String, Integer> localVal) throws RunningException {
-        return 0;
+        localVal.put("current", Program.MY_CURRENT);
+        int arg = exp.run(localVal);
+        int index = localVal.get("my");
+        if(index==Program.FIRST_RUN){
+            if (arg > ((List)GlobalValue.getGlobalVal("history1")).size()){
+                throw new RunningException("current index out of array 'history1'");
+            }
+            return (Integer) ((List)GlobalValue.getGlobalVal("history1")).get(arg-1);
+        }
+        if(index==Program.SECOND_RUN){
+            if (arg > ((List)GlobalValue.getGlobalVal("history2")).size()){
+                throw new RunningException("current index out of array 'history2'");
+            }
+            return (Integer) ((List)GlobalValue.getGlobalVal("history2")).get(arg-1);
+        }
+        else {
+            throw new RunningException("my-stmt cannot run in single mode");
+        }
     }
 }
