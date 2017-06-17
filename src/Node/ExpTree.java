@@ -1,4 +1,4 @@
-package Entity;
+package Node;
 
 import Expection.CompileException;
 import Compiler.TokenList;
@@ -51,6 +51,15 @@ public class ExpTree implements Tree{
         }
         else {
             return left.run(localVal);
+        }
+    }
+
+    @Override
+    public void print(int deep) {
+        left.print(deep);
+        if(getCondition().equals("hasLogic")){
+            logic.print(deep);
+            right.print(deep);
         }
     }
 }

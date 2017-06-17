@@ -1,4 +1,4 @@
-package Entity;
+package Node;
 
 import Expection.CompileException;
 import Compiler.TokenList;
@@ -61,5 +61,14 @@ public class LogicExpTree implements Tree{
             return left.run(localVal);
         }
         else throw new RunningException("logic-exp grammar error");
+    }
+
+    @Override
+    public void print(int deep) {
+        left.print(deep);
+        if(getCondition().equals("hasComp")){
+            comp.print(deep);
+            right.print(deep);
+        }
     }
 }

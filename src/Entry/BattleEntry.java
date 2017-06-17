@@ -1,20 +1,22 @@
-package Runtime;
+package Entry;
 
+import Expection.CompileException;
 import Expection.RunningException;
+import Runtime.*;
 
 import java.util.*;
 
 @SuppressWarnings("all")
 public class BattleEntry {
     private static Map<String, Integer> pointCounter = new HashMap<>();
+    private static int bigRound = 1;
 
-    public static void battle(int round) throws RunningException{
-        Runner runner = new Runner();
-        for(String key:GlobalValue.getPrograms().keySet()){
+    public static void battle(Runner runner, int round) throws RunningException{
+        for(String key: GlobalValue.getPrograms().keySet()){
             pointCounter.put(key, 0);
         }
-        for(String key1:GlobalValue.getPrograms().keySet()){
-            for (String key2:GlobalValue.getPrograms().keySet()){
+        for(String key1: GlobalValue.getPrograms().keySet()){
+            for (String key2: GlobalValue.getPrograms().keySet()){
                 if(!key1.equals(key2)){
                     battle(runner, key1, key2, round, true);
                 }
@@ -75,14 +77,14 @@ public class BattleEntry {
         else System.out.println("\nfinal:\t" + s1 + "=" + point1 + "   " + s2 + "=" + point2);
     }
 
-    public static void battle(String s1, String s2, int round) throws RunningException {
-        battle(new Runner(), s1, s2, round, false);
-    }
-
     public static void main(String args[]){
         try {
-//            battle("t3.txt","t4.txt", 10);
-            battle(200);
+            Runner runner = new Runner();
+            runner.load("strategy");
+//            battle(new Runner(),"t3.txt","t4.txt", 10, false);
+            battle(new Runner(), 200);
+        }catch (CompileException ce){
+            System.err.println(ce);
         }catch (RunningException re){
             System.err.println(re);
         }

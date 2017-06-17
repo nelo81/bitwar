@@ -1,7 +1,8 @@
-package Entity;
+package Node;
 
 import Expection.CompileException;
 import Compiler.TokenList;
+import Compiler.Parser;
 import Expection.RunningException;
 
 import java.util.ArrayList;
@@ -47,5 +48,14 @@ public class TermTree implements Tree{
             else throw new RunningException("term grammar error");
         }
         return result;
+    }
+
+    @Override
+    public void print(int deep) {
+        factors.get(0).print(deep);
+        for(int i=0;i<mulops.size();i++){
+            Parser.printWord(deep,mulops.get(i));
+            factors.get(i+1).print(deep);
+        }
     }
 }

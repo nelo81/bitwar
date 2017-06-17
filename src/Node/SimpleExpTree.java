@@ -1,7 +1,8 @@
-package Entity;
+package Node;
 
 import Expection.CompileException;
 import Compiler.TokenList;
+import Compiler.Parser;
 import Expection.RunningException;
 
 import java.util.ArrayList;
@@ -44,5 +45,14 @@ public class SimpleExpTree implements Tree{
             else throw new RunningException("simple-exp grammar error");
         }
         return result;
+    }
+
+    @Override
+    public void print(int deep) {
+        terms.get(0).print(deep);
+        for(int i=0;i<addops.size();i++){
+            Parser.printWord(deep,addops.get(i));
+            terms.get(i+1).print(deep);
+        }
     }
 }

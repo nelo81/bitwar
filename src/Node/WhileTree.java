@@ -1,7 +1,8 @@
-package Entity;
+package Node;
 
 import Expection.CompileException;
 import Compiler.TokenList;
+import Compiler.Parser;
 import Expection.RunningException;
 
 import java.util.Map;
@@ -32,5 +33,15 @@ public class WhileTree implements Tree{
             if(val!=null) return val;
         }
         return null;
+    }
+
+    @Override
+    public void print(int deep) {
+        Parser.printWord(deep,"while");
+        exp.print(deep+1);
+        Parser.printWord(deep+1,"do");
+        stmts.print(deep+2);
+        Parser.printWord(deep+1,"-do");
+        Parser.printWord(deep,"endw");
     }
 }

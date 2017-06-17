@@ -1,7 +1,8 @@
-package Entity;
+package Node;
 
 import Expection.CompileException;
 import Compiler.TokenList;
+import Compiler.Parser;
 import Expection.RunningException;
 
 import java.util.Map;
@@ -23,5 +24,12 @@ public class ReturnTree implements Tree{
     @Override
     public Integer run(Map<String, Integer> localVal) throws RunningException {
         return exp.run(localVal);
+    }
+
+    @Override
+    public void print(int deep) {
+        Parser.printWord(deep,"return");
+        exp.print(deep+1);
+        Parser.printWord(deep,"-return");
     }
 }

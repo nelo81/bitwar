@@ -1,38 +1,18 @@
 package Compiler;
 
 import Expection.CompileException;
-import Entity.ProgramTree;
+import Node.ProgramTree;
+import Runtime.Program;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 import static Compiler.Tokenizer.getTokens;
 
 @SuppressWarnings("all")
 public class Parser {
-    private static final Map<String, String> grammars = new HashMap<>();
-
-    static {
-        grammars.put("program", "func-stat");
-        grammars.put("func-stat", "func id stmt-list endf");
-        grammars.put("stmt-list", "{stmt}");
-        grammars.put("stmt", "if-stmt | while-stmt | assign-stmt | return-stmt");
-        grammars.put("if-stmt", "if exp then stmt-list [else stmt-list] endi");
-        grammars.put("while-stmt", "while exp do stmt-list endw");
-        grammars.put("assign-stmt", "id is exp");
-        grammars.put("return-stmt", "return exp");
-        grammars.put("exp", "logic-exp [logic logic-exp]");
-        grammars.put("logic", "and | or");
-        grammars.put("logic-exp", "simple-exp [comp simple-exp]");
-        grammars.put("comp", "> | < | =");
-        grammars.put("simple-exp", "term {addop term}");
-        grammars.put("addop", "+ | -");
-        grammars.put("term", "factor {mulop factor}");
-        grammars.put("mulop", "* | /");
-        grammars.put("factor", "(exp) | num | id | random | const");
-        grammars.put("random", "random(exp)");
-        grammars.put("const", "current | my(exp) | opponent(exp)");
+    public static void printWord(int deep, String word) {
+        for(int i=0;i<deep;i++) System.out.print("\t");
+        System.out.println(word);
     }
 
     public static ProgramTree parse(String path) throws CompileException{
@@ -51,11 +31,18 @@ public class Parser {
         return program;
     }
 
+    public static void printTree(String name, Program program){
+        System.out.println("----------- "+name+" ----------");
+        program.printTree();
+        System.out.println("---------- end ----------");
+    }
+
     public static void main(String args[]) {
         try {
             String code = Filer.readFile("strategy/t5.txt");
             TokenList tokens = getTokens(code);
             ProgramTree program = parse(tokens);
+            printTree("t5.txt",new Program(program));
         }
         catch (CompileException ce){
             System.err.println(ce.getMessage());

@@ -1,6 +1,6 @@
 package Runtime;
 
-import Entity.ProgramTree;
+import Node.ProgramTree;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,5 +36,16 @@ public class GlobalValue {
 
     public static Map<String, Program> getPrograms(){
         return programs;
+    }
+
+    public static void printAllPrograms(){
+        if(programs.size()==0) System.out.println("no programs here");
+        for(String key:programs.keySet()){
+            System.out.println(key);
+        }
+    }
+
+    public static boolean hasProgram(String name){
+        return programs.keySet().contains(name);
     }
 }

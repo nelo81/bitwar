@@ -1,7 +1,8 @@
-package Entity;
+package Node;
 
 import Expection.CompileException;
 import Compiler.TokenList;
+import Compiler.Parser;
 import Expection.RunningException;
 
 import java.util.Map;
@@ -29,5 +30,12 @@ public class ProgramTree implements Tree {
     @Override
     public Integer run(Map<String, Integer> localVal) throws RunningException {
         return stmtList.run(localVal);
+    }
+
+    @Override
+    public void print(int deep) {
+        Parser.printWord(deep, "func " + name.getValue());
+        stmtList.print(deep+1);
+        Parser.printWord(deep, "endf");
     }
 }

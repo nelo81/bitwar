@@ -1,4 +1,4 @@
-package Entity;
+package Node;
 
 import Expection.CompileException;
 import Compiler.TokenList;
@@ -10,18 +10,9 @@ import java.util.Map;
 public class StmtListTree implements Tree{
     private StmtTree firstStmt;
     private StmtTree cursor;
-    private String condition;
 
     public StmtListTree(){
         firstStmt = null;
-    }
-
-    public String getCondition() {
-        return condition;
-    }
-
-    public void setCondition(String condition) {
-        this.condition = condition;
     }
 
     public void addStmt(StmtTree tree){
@@ -43,5 +34,10 @@ public class StmtListTree implements Tree{
     @Override
     public Integer run(Map<String, Integer> localVal) throws RunningException {
         return firstStmt.run(localVal);
+    }
+
+    @Override
+    public void print(int deep) {
+        firstStmt.print(deep);
     }
 }

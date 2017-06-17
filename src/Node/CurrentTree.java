@@ -1,8 +1,9 @@
-package Entity;
+package Node;
 
 import Expection.CompileException;
 import Expection.RunningException;
 
+import Compiler.Parser;
 import Compiler.TokenList;
 import Runtime.*;
 
@@ -44,5 +45,10 @@ public class CurrentTree implements Tree{
         else {
             throw new RunningException("my-stmt cannot run in single mode");
         }
+    }
+
+    @Override
+    public void print(int deep) {
+        Parser.printWord(deep,"current");
     }
 }

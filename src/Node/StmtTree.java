@@ -1,4 +1,4 @@
-package Entity;
+package Node;
 
 import Expection.CompileException;
 import Compiler.TokenList;
@@ -84,5 +84,17 @@ public class StmtTree implements Tree{
             default:
                 throw new RunningException("stmt grammar error");
         }
+    }
+
+    @Override
+    public void print(int deep) {
+        switch (getCondition()){
+            case "if": ifTree.print(deep);break;
+            case "while": whileTree.print(deep);break;
+            case "assign": assignTree.print(deep);break;
+            case "return": returnTree.print(deep);break;
+            default:;
+        }
+        if(hasNext()) nextStmt.print(deep);
     }
 }

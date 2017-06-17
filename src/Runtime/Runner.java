@@ -10,32 +10,20 @@ import Expection.RunningException;
 
 @SuppressWarnings("all")
 public class Runner {
+    public Runner(){}
 
-    public Runner(String path){
+    public boolean load(String path) throws CompileException{
         File dir = new File(path);
         if(dir.exists() && dir.isDirectory()){
             File[] files = dir.listFiles();
             for(File file:files){
                 if(file.getName().endsWith(".txt")){
-                    try{
-                        GlobalValue.inputProgram(file.getName(), Parser.parse(file.getPath()));
-                    }catch (CompileException ce){
-                        System.err.println(file.getName() + ": " + ce);
-                    }
+                    GlobalValue.inputProgram(file.getName(), Parser.parse(file.getPath()));
                 }
             }
+            return true;
         }
-        else System.err.println("directory is not exist");
-    }
-
-    public Runner(){
-        this("strategy");
-    }
-
-    public void printAllPrograms(){
-        for(String key:GlobalValue.getPrograms().keySet()){
-            System.out.println(key);
-        }
+        else return false;
     }
 
     public Integer run(String name, int order) throws RunningException{
@@ -49,7 +37,10 @@ public class Runner {
     public static void main(String args[]){
         Runner runner = new Runner();
         try{
-            runner.run("t1.txt");
+            runner.load("strategy");
+            System.out.println(runner.run("t1.txt"));
+        }catch (CompileException ce){
+            System.err.println(ce);
         }catch (RunningException re){
             System.err.println(re);
         }

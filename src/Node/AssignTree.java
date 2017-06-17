@@ -1,7 +1,8 @@
-package Entity;
+package Node;
 
 import Expection.CompileException;
 import Compiler.TokenList;
+import Compiler.Parser;
 import Expection.RunningException;
 
 import java.util.Map;
@@ -30,5 +31,12 @@ public class AssignTree implements Tree{
     public Integer run(Map<String, Integer> localVal) throws RunningException {
         localVal.put(id.getValue(), exp.run(localVal));
         return null;
+    }
+
+    @Override
+    public void print(int deep) {
+        id.print(deep);
+        Parser.printWord(deep,"is");
+        exp.print(deep);
     }
 }

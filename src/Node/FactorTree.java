@@ -1,4 +1,4 @@
-package Entity;
+package Node;
 
 import Expection.CompileException;
 import Compiler.TokenList;
@@ -66,6 +66,17 @@ public class FactorTree implements Tree{
             case "const": return con.run(localVal);
             default:
                 throw new RunningException("factor grammar error");
+        }
+    }
+
+    @Override
+    public void print(int deep) {
+        switch (getCondition()){
+            case "exp": exp.print(deep+1);break;
+            case "value": value.print(deep);break;
+            case "random": random.print(deep);break;
+            case "const": con.print(deep);break;
+            default:;
         }
     }
 }

@@ -1,6 +1,6 @@
 package Runtime;
 
-import Entity.ProgramTree;
+import Node.ProgramTree;
 import Expection.RunningException;
 
 import java.util.HashMap;
@@ -31,6 +31,10 @@ public class Program {
 
     public Integer run() throws RunningException{
         return run(SINGLE_RUN);
+    }
+
+    public void printTree(){
+        programTree.print(0);
     }
 
     public Map<String, Integer> getLocalVal() {

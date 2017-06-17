@@ -1,4 +1,4 @@
-package Entity;
+package Node;
 
 import Expection.CompileException;
 import Compiler.TokenList;
@@ -51,5 +51,12 @@ public class ConstTree implements Tree{
         if(getCondition().equals("my")) return my.run(localVal);
         if(getCondition().equals("opponent")) return opponent.run(localVal);
         else throw new RunningException("const grammar error");
+    }
+
+    @Override
+    public void print(int deep) {
+        if(getCondition().equals("current")) current.print(deep);
+        if(getCondition().equals("my")) my.print(deep);
+        if(getCondition().equals("opponent")) opponent.print(deep);
     }
 }

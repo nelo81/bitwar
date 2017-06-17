@@ -1,7 +1,8 @@
-package Entity;
+package Node;
 
 import Expection.CompileException;
 import Compiler.TokenList;
+import Compiler.Parser;
 import Expection.RunningException;
 
 import java.util.Map;
@@ -30,5 +31,12 @@ public class RandomTree implements Tree{
         int max = exp.run(localVal);
         Random r = new Random();
         return r.nextInt(max);
+    }
+
+    @Override
+    public void print(int deep) {
+        Parser.printWord(deep,"random");
+        exp.print(deep+1);
+        Parser.printWord(deep,"-random");
     }
 }

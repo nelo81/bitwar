@@ -1,4 +1,4 @@
-package Entity;
+package Node;
 
 import Expection.CompileException;
 import Compiler.TokenList;
@@ -10,4 +10,6 @@ public interface Tree {
     void grow(TokenList tokens) throws CompileException;
 
     Integer run(Map<String, Integer> localVal) throws RunningException;
+
+    void print(int deep);
 }

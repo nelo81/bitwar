@@ -1,7 +1,8 @@
-package Entity;
+package Node;
 
 import Expection.CompileException;
 import Compiler.TokenList;
+import Compiler.Parser;
 import Expection.RunningException;
 
 import java.util.Map;
@@ -53,5 +54,10 @@ public class Leaf implements Tree{
                 return Integer.parseInt(getValue());
             default: throw new RunningException("this leaf can't run");
         }
+    }
+
+    @Override
+    public void print(int deep) {
+        Parser.printWord(deep,getValue());
     }
 }

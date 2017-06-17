@@ -1,7 +1,8 @@
-package Entity;
+package Node;
 
 import Expection.CompileException;
 import Compiler.TokenList;
+import Compiler.Parser;
 import Expection.RunningException;
 
 import java.util.Map;
@@ -54,5 +55,20 @@ public class IfTree implements Tree{
             return elsePart.run(localVal);
         }
         return null;
+    }
+
+    @Override
+    public void print(int deep) {
+        Parser.printWord(deep,"if");
+        ifPart.print(deep+1);
+        Parser.printWord(deep+1,"then");
+        thenPart.print(deep+2);
+        Parser.printWord(deep+1,"-then");
+        if(getCondition().equals("else")){
+            Parser.printWord(deep+1,"else");
+            elsePart.print(deep+2);
+            Parser.printWord(deep+1,"-else");
+        }
+        Parser.printWord(deep,"endi");
     }
 }
