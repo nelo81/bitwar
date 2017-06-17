@@ -53,6 +53,6 @@ public class IfTree implements Tree{
         else if(getCondition().equals("else")){
             return elsePart.run(localVal);
         }
-        else throw new RunningException("if-stmt grammar error");
+        return null;
     }
 }

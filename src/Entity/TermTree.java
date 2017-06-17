@@ -39,8 +39,11 @@ public class TermTree implements Tree{
         for(int i=0;i<mulops.size();i++){
             if(mulops.get(i).equals("*"))
                 result *= factors.get(i+1).run(localVal);
-            else if(mulops.get(i).equals("/"))
-                result /= factors.get(i+1).run(localVal);
+            else if(mulops.get(i).equals("/")){
+                int val = factors.get(i+1).run(localVal);
+                if (val == 0) throw new RunningException("0 cannot follow '/'");
+                result /= val;
+            }
             else throw new RunningException("term grammar error");
         }
         return result;

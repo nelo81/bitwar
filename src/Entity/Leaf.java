@@ -48,7 +48,7 @@ public class Leaf implements Tree{
         switch (getCondition()){
             case "id":
                 if(localVal.containsKey(getValue())) return localVal.get(getValue());
-                else throw new RunningException("id '"+getValue()+"is not defined");
+                else throw new RunningException("id '"+getValue()+"' is not defined");
             case "num":
                 return Integer.parseInt(getValue());
             default: throw new RunningException("this leaf can't run");

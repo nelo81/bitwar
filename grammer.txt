@@ -18,17 +18,21 @@ factor      -> (exp) | num | id | random | const
 random      -> random(exp)
 const       -> current | my(exp) | opponent(exp)
 
-num         -> [0-9]+
-id          -> [a-zA-Z]+
+random: generate a int value between 0 and the argument
+current: return the next step count of either strategy in battle
+my: return the value of the step count in self-history
+opponent: return the value of the step count argument in opponent-history
 
+limit token:
+    func endf
+    if then else endi
+    while do endw
+    is
+    return
+    and or
+    comp addop mulop
+    random current my opponent
 
-token: 
-       func endf 
-       if then else endi
-       while do endw
-       is
-       return
-       and or
-       comp addop mulop
-       random current my opponent
-       id num
+value token:
+    num         -> [0-9]+
+    id          -> [a-zA-Z]+

@@ -1,11 +1,11 @@
 func t4
-    if current = 0
+    if current = 1
     then
         return 1
     else
         if random(4) = 3
         then return 0
-        else return opponent(current)
+        else return opponent(current-1)
         endi
     endi
 endf

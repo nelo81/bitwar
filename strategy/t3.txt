@@ -3,6 +3,6 @@ func t3
     then
         return 1
     else
-        return opponent(current)
+        return opponent(current-1)
     endi
 endf

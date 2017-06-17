@@ -77,7 +77,9 @@ public class StmtTree implements Tree{
                 val = whileTree.run(localVal);
                 if(val==null) return hasNext()?nextStmt.run(localVal):null;
                 else return val;
-            case "assign": return hasNext()?nextStmt.run(localVal):null;
+            case "assign":
+                assignTree.run(localVal);
+                return hasNext()?nextStmt.run(localVal):null;
             case "return": return returnTree.run(localVal);
             default:
                 throw new RunningException("stmt grammar error");

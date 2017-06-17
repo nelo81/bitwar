@@ -56,7 +56,6 @@ public class Parser {
             String code = Filer.readFile("strategy/t5.txt");
             TokenList tokens = getTokens(code);
             ProgramTree program = parse(tokens);
-            System.out.println("compile success");
         }
         catch (CompileException ce){
             System.err.println(ce.getMessage());
