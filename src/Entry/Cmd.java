@@ -18,11 +18,15 @@ public class Cmd {
     static {
         runner = new Runner();
         help = new HashMap<>();
-        help.put("load","load all strategies from the target directory(default 'strategy')");
-        help.put("ls","print all programs' name which had been loaded");
-        help.put("show","print the grammar tree of target strategy");
-        help.put("run","run the target strategy");
-        help.put("battle","start a battle between two strategies (default all strategies)");
+        help.put("load","[target directory]|[]\n" +
+                "      load all strategies from the target directory(default 'strategy')\n");
+        help.put("ls","print all programs' name which had been loaded\n");
+        help.put("show","[target strategy]\n" +
+                "      print the grammar tree of target strategy\n");
+        help.put("run","[target strategy]\n" +
+                "     run the target strategy\n");
+        help.put("battle","[strategy1,strategy2,round]|[round]\n" +
+                "        start a battle between two strategies (default all strategies)\n");
     }
 
     public Cmd(String cmd){
@@ -57,12 +61,12 @@ public class Cmd {
         if(cmd.size()==1) {
             if(runner.load("strategy"))
                 System.out.println("successfully load strategies from default 'strategy'");
-            else throw new CompileException("default directory 'strategy' is not exist");
+            else throw new CmdException("default directory 'strategy' is not exist");
         }
         else if(cmd.size()==2) {
             if(runner.load(cmd.get(1)))
                 System.out.println("successfully load strategies from '"+cmd.get(1)+"'");
-            else throw new CompileException("directory '"+cmd.get(1)+"' is not exist");
+            else throw new CmdException("directory '"+cmd.get(1)+"' is not exist");
         }
         else throw new CmdException("wrong args for load command");
     }
@@ -80,7 +84,7 @@ public class Cmd {
     private void run() throws CmdException, RunningException{
         if(cmd.size()!=2) throw new CmdException("wrong args for run command");
         String target = cmd.get(1);
-        if(!GlobalValue.hasProgram(target)) throw new CmdException("'"+target+"' is not exist");
+        if(!GlobalValue.hasProgram(target)) throw new CmdException("'"+target+"' is not loaded");
         System.out.println("result: "+runner.run(target));
     }
 
@@ -95,9 +99,9 @@ public class Cmd {
             if(round2<=0)
                 throw new CmdException("'"+round2+"' is not a number over zero");
             if(!GlobalValue.hasProgram(target1))
-                throw new CmdException("'"+target1+"' is not exist");
+                throw new CmdException("'"+target1+"' is not loaded");
             if(!GlobalValue.hasProgram(target2))
-                throw new CmdException("'"+target2+"' is not exist");
+                throw new CmdException("'"+target2+"' is not loaded");
             BattleEntry.battle(runner,target1,target2,round2,false);
         }
         else if(cmd.size()==2){

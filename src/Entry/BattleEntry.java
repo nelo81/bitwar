@@ -9,12 +9,12 @@ import java.util.*;
 @SuppressWarnings("all")
 public class BattleEntry {
     private static Map<String, Integer> pointCounter = new HashMap<>();
-    private static int bigRound = 1;
 
     public static void battle(Runner runner, int round) throws RunningException{
         for(String key: GlobalValue.getPrograms().keySet()){
             pointCounter.put(key, 0);
         }
+        System.out.println("\nevery battle result:");
         for(String key1: GlobalValue.getPrograms().keySet()){
             for (String key2: GlobalValue.getPrograms().keySet()){
                 if(!key1.equals(key2)){
@@ -24,7 +24,7 @@ public class BattleEntry {
         }
         List<Map.Entry<String,Integer>> list = new ArrayList<>(pointCounter.entrySet());
         list.sort((e1,e2)->e2.getValue()-e1.getValue());
-        System.out.println("\nbattle result:");
+        System.out.println("\nfinal battle result:");
         list.forEach(System.out::println);
     }
 
@@ -68,9 +68,10 @@ public class BattleEntry {
                 point1 += 3;
                 point2 += 3;
             }
-            if(!record)System.out.println("round "+ (i+1) + ":\t" + result1 + "\t\t" + result2);
+            if(!record)System.out.println("round "+ (i+1) + ":\t" + result1 + "\t" + result2);
         }
         if(record){
+            System.out.println(s1+" vs "+s2+": "+point1+"\t"+point2);
             pointCounter.put(s1, pointCounter.get(s1) + point1);
             pointCounter.put(s2, pointCounter.get(s2) + point2);
         }

@@ -8,13 +8,14 @@ public class Main {
         while (true) {
             System.out.print("bitwar>");
             String line = scanner.nextLine();
+            if (line.equals("exit")) break;
             Cmd cmd = new Cmd(line);
             try {
                 cmd.execute();
             }catch (Exception e){
                 System.err.println(e.getLocalizedMessage());
             }
-            if (line.equals("exit")) break;
+            System.out.println();
         }
     }
 }
